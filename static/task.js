@@ -37,6 +37,7 @@ function blink(row) {
 $(function(){
   $('#stop_button').click(function(){
     clearInterval(counter);
+    document.title = "Time Tracker";
 
     $.ajax({
       url: '/stop',
@@ -104,6 +105,7 @@ $(function(){
           cnt_txt += pad(minutes, 2) + "m " + pad(seconds, 2) + "s";
 
           $('#counter_value').html(cnt_txt);
+          document.title = cnt_txt + " | Time Tracker";
         }, 1000);
       },
       error: function(error) {
