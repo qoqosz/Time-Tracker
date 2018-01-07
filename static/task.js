@@ -117,11 +117,11 @@ $(function(){
         $('#tasks_list tbody').prepend(row);
         $('#task_input').hide();  
         $('#counter').show();
-        $('#counter_value').html('00m 00s');
 
         blink($('#tasks_list tbody tr:first'));
 
         var startTime = new Date().getTime();
+        startCounter(startTime);
         counter = setInterval(function() { startCounter(startTime); }, 1000);
       },
       error: function(error) {
@@ -169,6 +169,7 @@ $(document).ready(function() {
 
         $('#task_input').hide();  
         $('#counter').show();
+        startCounter(startTime);
         counter = setInterval(function() { startCounter(startTime); }, 1000);
       }
     }
