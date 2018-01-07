@@ -1,0 +1,25 @@
+.input {
+  margin: 0 auto;
+  text-align: left;
+  display: table;
+}
+
+.input-container {
+  margin: 0;
+  margin-top: 20px;
+  padding: 0;
+  text-align: center;
+}
+
+#counter {
+  display: none;
+}
+
+table.dataframe, .dataframe th, .dataframe td {
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.tasks th {
+}

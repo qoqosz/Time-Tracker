@@ -1,0 +1,91 @@
+{% extends "layout.html" %}
+{% block body %}
+
+
+
+<div class="input-container">
+  <div class="input" id="task_input">
+    <form role="form" id="task_form" method="form">
+      <div class="mdl-textfield mdl-js-textfield" style="width: 200px;">
+        <!-- Task Name -->
+        <input class="mdl-textfield__input" type="text" id="task_name" name="task_name">
+        <label class="mdl-textfield__label" for="task_name">Task Name</label>
+      </div>
+      <div class="mdl-textfield mdl-js-textfield" style="width: 200px;">
+        <!-- Category -->
+        <input class="mdl-textfield__input" type="text" id="task_category" name="task_category" size="30">
+        <label class="mdl-textfield__label" for="task_category">Category</label>
+      </div>
+      &nbsp;&nbsp;
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect
+          mdl-button--accent" id="task_button" form="task_form" type="button" value="Start">
+        Start
+      </button>
+    </form>
+  </div>
+  <div class="input" id="counter" style="vertical-align: middle">
+    <div style="line-height: 51px; margin:auto; text-align: center;">
+      <h1 id="counter_value" style="display: inline-block;"></h1>   
+      &nbsp;&nbsp;
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect
+      mdl-button--accent" id="stop_button" type="button" value="Stop">
+        Stop
+      </button>
+    </div>
+  </div>
+</div>
+<table class='dataframe mdl-data-table mdl-js-data-table mdl-shadow--2dp' id='tasks_list'>
+  <thead>
+    <tr class='dataframe'>
+      <th class="mdl-data-table__cell--non-numeric">Date</th>
+      <th class="mdl-data-table__cell--non-numeric">Start Time</th>
+      <th class="mdl-data-table__cell--non-numeric">Task Name</th>
+      <th class="mdl-data-table__cell--non-numeric">Category</th>
+      <th>Duration</th>
+      <th class="mdl-data-table__cell--non-numeric">End Time</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for _, row in tbl.iterrows() %}
+    <tr class='dataframe'>
+      <td class="mdl-data-table__cell--non-numeric">{{ row['date'] }}</td>
+      <td class="mdl-data-table__cell--non-numeric">{{ row['start_time'] }}</td>
+      <td class="mdl-data-table__cell--non-numeric">{{ row['task_name'] }}</td>
+      <td class="mdl-data-table__cell--non-numeric">{{ row['category'] }}</td>
+      <td>{{ row['duration'] }}</td>
+      <td class="mdl-data-table__cell--non-numeric">{{ row['end_time'] }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<div class="input-container">
+  <div class="input">
+    <form id="date_select" role="form" method="form">
+      <div class="mdl-textfield mdl-js-textfield" style="width: 200px;">
+        <input class="mdl-textfield__input" type="text" id="date_tasks"
+        name="date">
+        <label class="mdl-textfield__label" for="task_name">Date</label>
+      </div>
+      <button class="mdl-button mdl-js-button mdl-button--raised
+          mdl-js-ripple-effect" id="date_button" form="date_select"
+          type="button" value="Search">
+        Search
+      </button>
+    </form>
+  </div>
+</div>
+<span id="current_date"></span>
+
+<!--
+<div>
+  <form id="test_form" role="form">
+    <input type="text" id="test_cnt" name="countdown">
+    <button type="button" id="test_button">Start</button>
+  </form>
+  <span id="test_response">Dupa</span>
+</div>
+-->
+
+
+{% endblock %}
