@@ -21,8 +21,6 @@ function pad(n, width, z) {
   return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
 }
 
-var counter;
-
 function blink(row) {
   var highlight_color = '#fff176';
 
@@ -32,6 +30,40 @@ function blink(row) {
     row.css('background-color', '');
   }, 1000);
 }
+
+function startCounter(startTime) {
+  var now = new Date().getTime();
+  var distance = now - startTime;
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  var cnt_txt = '';
+
+  if (hours > 0) {
+    cnt_txt += pad(hours, 2) + "h ";
+  }
+  cnt_txt += pad(minutes, 2) + "m " + pad(seconds, 2) + "s";
+
+  $('#counter_value').html(cnt_txt);
+  document.title = cnt_txt + " | Time Tracker";
+}
+
+function str2date(txt) {
+  var date = txt.split(' ')[0];
+  var time = txt.split(' ')[1];
+
+  date = date.split('.').map(parseFloat);
+  time = time.split(':').map(parseFloat);
+
+  return new Date(date[0], date[1]-1, date[2], time[0], time[1], time[2]);
+}
+
+var counter;
+
+$(function(){
+  $('#pause_button').click(function(){
+  });
+});
 
 $(function(){
   $('#stop_button').click(function(){
@@ -48,9 +80,9 @@ $(function(){
         console.log(response);
         $('#task_name').parent().get(0).MaterialTextfield.change();
         $('#task_category').parent().get(0).MaterialTextfield.change();
-        $('#task_input').show(); // css({'display': 'inline', 'visibility': 'visible'})
-        $('#counter').hide(); // .css({'display': 'none', 'visibility': 'hidden'});    
-       
+        $('#task_input').show();
+        $('#counter').hide();
+
         var row = $('#tasks_list').find('tbody tr:first');
         row.find('td:eq(4)').html(response.duration);
         row.find('td:eq(5)').html(response.end_time);
@@ -83,29 +115,14 @@ $(function(){
         var json = JSON.parse(response)[0];
         var row = json_to_row(json);
         $('#tasks_list tbody').prepend(row);
-        $('#task_input').hide(); // .css({'display': 'none', 'visibility': 'hidden'});    
-        $('#counter').show(); // .css({'display': 'inline', 'visibility': 'visible'});
+        $('#task_input').hide();  
+        $('#counter').show();
         $('#counter_value').html('00m 00s');
 
         blink($('#tasks_list tbody tr:first'));
 
         var startTime = new Date().getTime();
-        counter = setInterval(function() {
-          var now = new Date().getTime();
-          var distance = now - startTime;
-          var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-          var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-          var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-          var cnt_txt = '';
-
-          if (hours > 0) {
-            cnt_txt += pad(hours, 2) + "h ";
-          }
-          cnt_txt += pad(minutes, 2) + "m " + pad(seconds, 2) + "s";
-
-          $('#counter_value').html(cnt_txt);
-          document.title = cnt_txt + " | Time Tracker";
-        }, 1000);
+        counter = setInterval(function() { startCounter(startTime); }, 1000);
       },
       error: function(error) {
         console.log(error);
@@ -138,4 +155,21 @@ $(function(){
     });
   });
 });
-      
+
+
+$(document).ready(function() {
+   var row = $('#tasks_list').find('tbody tr:first');
+
+    if (row.size() > 0) {
+      var td = row.find('td:eq(4)').text();
+
+      if (td == "null" || td == "None" || td == "nan") {
+        var startTime = str2date(row.find('td:eq(0)').text() + ' ' + row.find('td:eq(1)').text());
+        var localTime = new Date();
+
+        $('#task_input').hide();  
+        $('#counter').show();
+        counter = setInterval(function() { startCounter(startTime); }, 1000);
+      }
+    }
+});

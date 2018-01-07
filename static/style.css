@@ -21,3 +21,13 @@ table.dataframe, .dataframe th, .dataframe td {
   margin-right: auto;
 }
 
+#stop_button {
+  vertical-align: middle;
+  display: table-cell;
+  align-items: center;
+}
+
+button .pause_stop_buttons {
+  display: block;
+  margin-top: 0;
+}

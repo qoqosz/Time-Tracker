@@ -1,8 +1,6 @@
 {% extends "layout.html" %}
 {% block body %}
 
-
-
 <div class="input-container">
   <div class="input" id="task_input">
     <form role="form" id="task_form" method="form">
@@ -19,17 +17,22 @@
       &nbsp;&nbsp;
       <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect
           mdl-button--accent" id="task_button" form="task_form" type="button" value="Start">
-        Start
+        <i class="material-icons">play_arrow</i> Start
       </button>
     </form>
   </div>
   <div class="input" id="counter" style="vertical-align: middle">
     <div style="line-height: 51px; margin:auto; text-align: center;">
-      <h1 id="counter_value" style="display: inline-block;"></h1>   
-      &nbsp;&nbsp;
+      <h1 id="counter_value" style="display: inline-block;"></h1>
+      <div style="width: 50px; display:inline-block;">
+      </div>
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored 
+          mdl-js-ripple-effect pause_stop_buttons" id="pause_button" type="button" value="Pause">
+        <i class="material-icons">pause</i> Pause
+      </button>
       <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect
-      mdl-button--accent" id="stop_button" type="button" value="Stop">
-        Stop
+      mdl-button--accent pause_stop_buttons" id="stop_button" type="button" value="Stop">
+        <i class="material-icons">stop</i> Stop
       </button>
     </div>
   </div>
@@ -75,17 +78,5 @@
     </form>
   </div>
 </div>
-<span id="current_date"></span>
-
-<!--
-<div>
-  <form id="test_form" role="form">
-    <input type="text" id="test_cnt" name="countdown">
-    <button type="button" id="test_button">Start</button>
-  </form>
-  <span id="test_response">Dupa</span>
-</div>
--->
-
 
 {% endblock %}

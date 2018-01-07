@@ -57,6 +57,10 @@ def add_header(r):
     return r
 
 
+@app.route('/stats')
+def statistics():
+    return render_template('stats.html')
+
 @app.route('/')
 def main():
     init()
