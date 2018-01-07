@@ -24,13 +24,12 @@ function pad(n, width, z) {
 var counter;
 
 function blink(row) {
-  var original_color = row.css('background-color');
   var highlight_color = '#fff176';
 
   row.css('background-color', highlight_color);
 
   setTimeout(function() {
-    row.css('background-color', original_color);
+    row.css('background-color', '');
   }, 1000);
 }
 
